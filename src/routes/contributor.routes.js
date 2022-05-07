@@ -8,6 +8,7 @@ router.get('/contributor', (req, res)=>{
     return res.send('Student Archive:Contributor')
 })
 
+//  Protected
 //  @desc: Posting to the StudentArchive DB
 router.post('/contributor', contribute)
 
