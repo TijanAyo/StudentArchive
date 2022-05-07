@@ -46,8 +46,20 @@ const register = async (req, res) => {
 }
 
 // POST /auth/login/contributor
-const login = (req, res) => {
-    return res.send('authorizing user entry')
+const login = async (req, res) => {
+    const {email, password } = req.body
+
+    const findUser = await userAuth.findOne({email})
+
+    if(findUser && (await bcrypt.compare(password, findUser.password))){
+        return res.json({
+            status: 200,
+            msg: `${findUser.name} Logged in`
+        })
+    }
+    return res.json({
+        status: '401 Unauthorized'
+    })
 }
 
 module.exports = {
