@@ -1,15 +1,19 @@
 const userAuth = require('../models/auth.model')
-
+const bcrypt = require('bcryptjs')
 
 //  POST /auth/register/contributor
 const register = async (req, res) => {
     const {name, email, bio, password} = req.body
 
+    // Hash Password
+    const salt = await bcrypt.genSalt(10)
+    const hashedpwd = await bcrypt.hash(password, salt)
+
     const user = await userAuth.create({
         name,
         email,
         bio,
-        password
+        password:hashedpwd
     })
     if(user){
         return res.status(201).json({
