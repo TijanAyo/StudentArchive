@@ -1,5 +1,7 @@
 const statusCheck = (req, res) =>{
-    return res.send('Good to go...')
+    return res.json({
+        msg: 'Good to go'
+    })
 }
 
 const index = (req, res) => {
