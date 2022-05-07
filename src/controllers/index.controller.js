@@ -1,5 +1,6 @@
 const statusCheck = (req, res) =>{
     return res.json({
+        status: 200,
         msg: 'Good to go'
     })
 }
