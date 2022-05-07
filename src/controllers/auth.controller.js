@@ -5,6 +5,13 @@ const bcrypt = require('bcryptjs')
 const register = async (req, res) => {
     const {name, email, bio, password} = req.body
 
+    // Duplicate user with email
+    const userEmailCheck = await userAuth.findOne({email})
+    
+    if (userEmailCheck){
+        
+    }
+
     // Hash Password
     const salt = await bcrypt.genSalt(10)
     const hashedpwd = await bcrypt.hash(password, salt)
