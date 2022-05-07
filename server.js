@@ -1,6 +1,5 @@
 const express = require('express')
 const app = express()
-const PORT = process.env.PORT || 5050
 
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
@@ -20,6 +19,6 @@ app.use(contributor)
 ConnectDB()
 
 
-app.listen(PORT, ()=>{
-    console.log(`Listening on port: ${PORT}`)
+app.listen(process.env.PORT || 5000, () => {
+    console.log(`Server running ... ${process.env.PORT || 5000}`)
 })
