@@ -8,7 +8,7 @@ const contributorSchema = new mongoose.Schema({
     },
     courseTitle: {
         type:String,
-        required: [true, 'Provide a course title']
+        required: [true, 'Enter a course title']
     },
     courseDesc: {
         type: String,
