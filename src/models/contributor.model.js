@@ -12,7 +12,7 @@ const contributorSchema = new mongoose.Schema({
     },
     courseDesc: {
         type: String,
-        required: false
+        required: true
     }
 },{timestamps: true})
 
