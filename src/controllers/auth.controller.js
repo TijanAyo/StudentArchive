@@ -1,5 +1,6 @@
 const userAuth = require('../models/auth.model')
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 //  POST /auth/register/contributor
 const register = async (req, res) => {
@@ -31,7 +32,8 @@ const register = async (req, res) => {
         if(user){
             return res.json({
                 status: '201 Created',
-                user
+                user,
+                token: generateToken(user.id)
             })
         }
         return res.status(400).json({
@@ -54,11 +56,19 @@ const login = async (req, res) => {
     if(findUser && (await bcrypt.compare(password, findUser.password))){
         return res.json({
             status: 200,
-            msg: `${findUser.name} Logged in`
+            msg: `${findUser.name} Logged in`,
+            token: generateToken(findUser.id)
         })
     }
     return res.json({
         status: '401 Unauthorized'
+    })
+}
+
+// Generate Token
+const generateToken = (id) => {
+    return jwt.sign({id}, process.env.JWT_Secret_kEY, {
+        expiresIn: '1d'
     })
 }
 

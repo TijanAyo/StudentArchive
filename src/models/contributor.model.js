@@ -7,7 +7,7 @@ const contributorSchema = new mongoose.Schema({
         ref: 'User'
     },
     courseTitle: {
-        type:String,
+        type: String,
         required: [true, 'Enter a course title']
     },
     courseDesc: {
