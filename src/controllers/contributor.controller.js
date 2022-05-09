@@ -15,14 +15,13 @@ const contribute = async (req, res) => {
             contributedBy: req.user.name,
             title: courseTitle,
             description: courseDesc,
-        }] 
-        //contributor: req.user.n
+        }]
     })
 
 
-    // Posting to the studentArchive DB
-    // course name
-    //description - optional
+    // Posting to the studentArchive DB -- done
+    // course name  -- done
+    //description - optional -- done
     // file - .pdf, .docx e.t.c
 
     //@desc: Contributor would be able to make a post if authorized
