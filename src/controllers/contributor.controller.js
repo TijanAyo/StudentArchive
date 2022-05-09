@@ -16,7 +16,7 @@ const contribute = async (req, res) => {
             title: courseTitle,
             description: courseDesc,
         }] 
-        //contributor: req.user.name
+        //contributor: req.user.n
     })
 
 
