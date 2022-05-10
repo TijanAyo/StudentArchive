@@ -4,16 +4,16 @@ const router = express.Router()
 const {register, login} = require('../controllers/auth.controller')
 
 // @desc: Login Route
-router.get('/auth/login/contributor', (req, res) => {
+router.get('/auth/contributor/login', (req, res) => {
     return res.send('Student Archive:Login')
 })
-router.post('/auth/login/contributor', login)
+router.post('/auth/contributor/login', login)
 
 // @desc: Register Route
-router.get('/auth/register/contributor', (req, res)=>{
+router.get('/auth/contributor/register', (req, res)=>{
     return res.send('Student Archive: Register')
 })
-router.post('/auth/register/contributor', register)
+router.post('/auth/contributor/register', register)
 
 
 module.exports = router

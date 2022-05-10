@@ -1,8 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const { contribute } = require('../controllers/contributor.controller')
+const { contribute, download, upload} = require('../controllers/contributor.controller')
 const { Protect } = require('../middleware/auth.middleware')
-
 
 //  @desc: Authorize user to access /contributor endpoint
 router.get('/contributor', Protect, (req, res)=>{
@@ -11,6 +10,9 @@ router.get('/contributor', Protect, (req, res)=>{
 
 //  Protected
 //  @desc: Posting to the StudentArchive DB: Material
-router.post('/contributor/upload', Protect, contribute)
+router.post('/upload', upload.single('file'), Protect, contribute)
+
+// @desc: Download material
+router.get('/download/:filename', download)
 
 module.exports = router

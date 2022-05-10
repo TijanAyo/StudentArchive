@@ -31,9 +31,8 @@ const register = async (req, res) => {
         })
         if(user){
             return res.json({
-                status: '201 Created',
+                status: 201,
                 user,
-                token: generateToken(user.id)
             })
         }
         return res.status(400).json({
