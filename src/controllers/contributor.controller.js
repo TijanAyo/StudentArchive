@@ -5,8 +5,8 @@ const multer = require('multer')
 const multerS3 = require('multer-s3')
 
 AWS.config.update({
-    secretAccessKey: process.env.AWS_ACCESS_KEY,
-    accessKeyId: process.env.AWS_ACCESS_SECRET,
+    secretAccessKey: process.env.AWS_ACCESS_SECRET,
+    accessKeyId: process.env.AWS_ACCESS_KEY,
     region: process.env.AWS_REGION
 })
 
@@ -54,7 +54,7 @@ const contribute = async (req, res) => {
 const download = async (req, res) =>{
     const filename = req.params.filename
     let x = await s3.getObject({ Bucket: BUCKET, Key: filename}).promise()
-    res.send(x)
+    res.send(x.Body)
 }
 
 module.exports = {
