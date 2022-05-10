@@ -55,7 +55,7 @@ const login = async (req, res) => {
     if(findUser && (await bcrypt.compare(password, findUser.password))){
         return res.json({
             status: 200,
-            msg: `${findUser.name} Logged in`,
+            msg: `${findUser.name} is now logged in`,
             token: generateToken(findUser.id)
         })
     }
