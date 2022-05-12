@@ -6,7 +6,7 @@ const statusCheck = (req, res) =>{
 }
 
 const index = (req, res) => {
-    return res.send('Student Archive: Home')
+    return res.send('Student Archive: Welcome to Home')
 }
 
 const about = (req, res) => {

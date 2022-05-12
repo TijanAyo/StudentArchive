@@ -10,7 +10,7 @@ router.get('/contributor', Protect, (req, res)=>{
 
 //  Protected
 //  @desc: Posting to the StudentArchive DB: Material
-router.post('/upload', upload.single('file'), Protect, contribute)
+router.post('/contributor/upload', upload.single('file'), Protect, contribute)
 
 // @desc: Download material
 router.get('/download/:filename', download)
