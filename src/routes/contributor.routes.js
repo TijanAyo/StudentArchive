@@ -2,10 +2,12 @@ const express = require('express')
 const router = express.Router()
 const { contribute, download, upload} = require('../controllers/contributor.controller')
 const { Protect } = require('../middleware/auth.middleware')
+const userAuth = require('../models/auth.model')
 
 //  @desc: Authorize user to access /contributor endpoint
 router.get('/contributor', Protect, (req, res)=>{
-    return res.json('Student Archive:Contributor')
+    return res.render('../views/contributor/contributor.index.ejs', {contributor: userAuth})
+    /* return res.json('Student Archive:Contributor') */
 })
 
 //  Protected

@@ -30,12 +30,13 @@ const register = async (req, res) => {
             password:hashedpwd
         })
         if(user){
-            return res.json({
+            return res.redirect('/auth/contributor/login')
+            /* return res.json({
                 status: 201,
                 user,
-            })
+            }) */
         }
-        return res.status(400).json({
+        return res.status(400).send({
             msg: 'Invalid user data...something went wrong'
         })
     }
@@ -53,11 +54,13 @@ const login = async (req, res) => {
     const findUser = await userAuth.findOne({email})
 
     if(findUser && (await bcrypt.compare(password, findUser.password))){
-        return res.json({
+        /* res.send({
             status: 200,
             msg: `${findUser.name} is now logged in`,
             token: generateToken(findUser.id)
-        })
+        }) */
+        return res.redirect('/contributor')
+        
     }
     return res.json({
         status: '401 Unauthorized'
