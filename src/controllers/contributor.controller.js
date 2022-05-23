@@ -19,20 +19,21 @@ const upload = multer({
         s3:s3,
         acl: "public-read",
         bucket: BUCKET,
-        key: function (req, file, cb){
+        key: function (_, file, cb){
             cb(null, file.originalname)
         }
     }) 
 })
 
 const contribute = async (req, res) => {
-    const {courseTitle, courseDesc} = req.body
+    const {courseTitle, courseCode, courseDesc} = req.body
     const file = req.file
     console.log(file)
     try{
         await contribution.create({
             user: req.user.id,
             courseTitle,
+            courseCode,
             courseDesc
         })
         return res.json({
@@ -41,6 +42,7 @@ const contribute = async (req, res) => {
             details: [{
                 contributedBy: req.user.name,
                 title: courseTitle,
+                courseCode: courseCode,
                 description: courseDesc,
             }]
         })

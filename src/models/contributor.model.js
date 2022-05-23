@@ -10,16 +10,15 @@ const contributorSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Enter a course title']
     },
+    courseCode: {
+        type: String,
+        require: true
+    },
     courseDesc: {
         type: String,
         required: true
     }
 },{timestamps: true})
 
-// contributor schema basic structure
-// user
-// course title
-//  course description
-// timestamps
 
 module.exports = mongoose.model('Material', contributorSchema)
