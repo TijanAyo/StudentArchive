@@ -5,7 +5,7 @@ const { Protect } = require('../middleware/auth.middleware')
 const userAuth = require('../models/auth.model')
 
 //  @desc: Authorize user to access /contributor endpoint
-router.get('/contributor', Protect, (req, res)=>{
+router.get('/contributor', Protect, (_, res)=>{
     return res.render('../views/contributor/contributor.index.ejs', {contributor: userAuth})
     /* return res.json('Student Archive:Contributor') */
 })
