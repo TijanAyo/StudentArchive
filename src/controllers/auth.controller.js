@@ -7,7 +7,7 @@ const register = async (req, res) => {
     try{
         const {name, email, bio, password} = req.body
 
-        // Duplicate user with email
+        // Check for: Duplicate user with email
         const checkUserEmail = await userAuth.findOne({email})
     
         if (checkUserEmail){
@@ -62,9 +62,8 @@ const login = async (req, res) => {
         return res.redirect('/contributor')
         
     }
-    return res.json({
-        status: '401 Unauthorized'
-    })
+    // res.json({status: '401 Unauthorized'})
+    return res.redirect('/auth/contributor/login')
 }
 
 // Generate Token
