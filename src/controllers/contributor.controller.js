@@ -1,18 +1,9 @@
 const contribution = require('../models/contributor.model')
-
 const AWS = require('aws-sdk')
-const multer = require('multer')
-const multerS3 = require('multer-s3')
-
-AWS.config.update({
-    secretAccessKey: process.env.AWS_ACCESS_SECRET,
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    region: process.env.AWS_REGION
-})
+// const s3 = require('../utils/multer/upload')
 
 const BUCKET = process.env.AWS_BUCKET
 const s3 = new AWS.S3()
-
 
 
 
@@ -50,6 +41,8 @@ const download = async (req, res) =>{
     res.send(x.Body)
 }
 
+
 module.exports = {
-    contribute, download, upload
+    contribute,
+    download
 }
