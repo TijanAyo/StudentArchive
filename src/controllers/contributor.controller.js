@@ -1,10 +1,14 @@
 const contribution = require('../models/contributor.model')
+const User = require('../models/auth.model')
 const AWS = require('aws-sdk')
-// const s3 = require('../utils/multer/upload')
-
 const BUCKET = process.env.AWS_BUCKET
 const s3 = new AWS.S3()
 
+
+const dashboard = async (req, res) => {
+    return res.render('../views/contributor/dashboard.ejs')
+    // return res.send(`Welcome ${user.name}`)
+}
 
 
 const contribute = async (req, res) => {
@@ -18,7 +22,7 @@ const contribute = async (req, res) => {
             courseCode,
             courseDesc
         })
-        return res.json({
+        res.json({
             status: 201,
             msg: req.file.location,
             details: [{
@@ -28,6 +32,7 @@ const contribute = async (req, res) => {
                 description: courseDesc,
             }]
         })
+        return render('/dashboard')
     }
     catch(err){
         console.log(err)
@@ -44,5 +49,6 @@ const download = async (req, res) =>{
 
 module.exports = {
     contribute,
-    download
+    download,
+    dashboard
 }
