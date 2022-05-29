@@ -1,29 +1,15 @@
 const contribution = require('../models/contributor.model')
-
+const User = require('../models/auth.model')
 const AWS = require('aws-sdk')
-const multer = require('multer')
-const multerS3 = require('multer-s3')
-
-AWS.config.update({
-    secretAccessKey: process.env.AWS_ACCESS_SECRET,
-    accessKeyId: process.env.AWS_ACCESS_KEY,
-    region: process.env.AWS_REGION
-})
-
 const BUCKET = process.env.AWS_BUCKET
 const s3 = new AWS.S3()
 
 
-const upload = multer({
-    storage: multerS3({
-        s3:s3,
-        acl: "public-read",
-        bucket: BUCKET,
-        key: function (_, file, cb){
-            cb(null, file.originalname)
-        }
-    }) 
-})
+const dashboard = async (req, res) => {
+    return res.render('../views/contributor/dashboard.ejs')
+    // return res.send(`Welcome ${user.name}`)
+}
+
 
 const contribute = async (req, res) => {
     const {courseTitle, courseCode, courseDesc} = req.body
@@ -36,7 +22,7 @@ const contribute = async (req, res) => {
             courseCode,
             courseDesc
         })
-        return res.json({
+        res.json({
             status: 201,
             msg: req.file.location,
             details: [{
@@ -46,6 +32,7 @@ const contribute = async (req, res) => {
                 description: courseDesc,
             }]
         })
+        return render('/dashboard')
     }
     catch(err){
         console.log(err)
@@ -59,6 +46,9 @@ const download = async (req, res) =>{
     res.send(x.Body)
 }
 
+
 module.exports = {
-    contribute, download, upload
+    contribute,
+    download,
+    dashboard
 }

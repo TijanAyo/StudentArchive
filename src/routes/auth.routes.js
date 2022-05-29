@@ -5,7 +5,7 @@ const {register, login} = require('../controllers/auth.controller')
 
 // @desc: Login Route
 router.get('/auth/contributor/login', (_, res) => {
-    return res.render('../views/auth/login.ejs')
+    return res.render('../views/auth/login.ejs', {message: 'Wrong info passed... confirm credentials'})
 })
 router.post('/auth/contributor/login', login)
 

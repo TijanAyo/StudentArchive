@@ -1,14 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const { contribute, download, upload} = require('../controllers/contributor.controller')
+const { contribute, download, dashboard} = require('../controllers/contributor.controller')
 const { Protect } = require('../middleware/auth.middleware')
-const userAuth = require('../models/auth.model')
+const upload = require('../utils/multer/upload')
 
 //  @desc: Authorize user to access /contributor endpoint
-router.get('/contributor', Protect, (_, res)=>{
-    return res.render('../views/contributor/contributor.index.ejs', {contributor: userAuth})
-    /* return res.json('Student Archive:Contributor') */
-})
+router.get('/dashboard', dashboard)
 
 //  Protected
 //  @desc: Posting to the StudentArchive DB: Material

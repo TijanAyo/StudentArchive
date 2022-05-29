@@ -7,16 +7,24 @@ const register = async (req, res) => {
     try{
         const {name, email, bio, password} = req.body
 
-        // Duplicate user with email
+        // validate user input
+        if (!name || !email || !password) {
+            req.flash('error_msg','Name, Email and Password required')
+            return res.redirect('/auth/contributor/register')
+        }
+
+        // Check for: Duplicate user with email
         const checkUserEmail = await userAuth.findOne({email})
     
         if (checkUserEmail){
             // Return an error message
-            return res.json({
+            req.flash('error_msg','Email is already in use')
+            return res.redirect('/auth/contributor/register')
+            /* return res.json({
                 status: '409 Conflict',
                 err: 'Already Exist',
                 msg: `${email} already in use`
-            })
+            }) */
         }
 
         // Hash Password
@@ -30,15 +38,19 @@ const register = async (req, res) => {
             password:hashedpwd
         })
         if(user){
-            return res.redirect('/auth/contributor/login')
-            /* return res.json({
+            req.flash('success_msg','You have now registered!')
+            return res.redirect('/dashboard')
+            /*return res.json({
                 status: 201,
                 user,
-            }) */
+            })*/
+            
         }
-        return res.status(400).send({
+        req.flash('error_msg', 'Something went wrong')
+        /*return res.status(400).send({
             msg: 'Invalid user data...something went wrong'
-        })
+        })*/
+        return res.redirect('/auth/contributor/register ')
     }
     catch(err){
         console.log(err)
@@ -49,7 +61,15 @@ const register = async (req, res) => {
 
 // POST /auth/login/contributor
 const login = async (req, res) => {
+
+
     const {email, password } = req.body
+
+    // validate user input
+    if (!email || !password){
+        req.flash('error_msg', 'Incorrect email or password')
+        return res.redirect('/auth/contributor/login')
+    }
 
     const findUser = await userAuth.findOne({email})
 
@@ -59,12 +79,12 @@ const login = async (req, res) => {
             msg: `${findUser.name} is now logged in`,
             token: generateToken(findUser.id)
         }) */
-        return res.redirect('/contributor')
+        return res.redirect('/dashboard')
         
     }
-    return res.json({
-        status: '401 Unauthorized'
-    })
+    req.flash('error', 'Unathorized')
+    res.json({status: '401 Unauthorized'})
+    // return res.redirect('/auth/contributor/login')
 }
 
 // Generate Token
