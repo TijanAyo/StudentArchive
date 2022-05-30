@@ -1,17 +1,21 @@
 const express = require('express')
 const router = express.Router()
-const { contribute, download, dashboard} = require('../controllers/contributor.controller')
+const { contribute, download, dashboard, Archive} = require('../controllers/contributor.controller')
 const { Protect } = require('../middleware/auth.middleware')
 const upload = require('../utils/multer/upload')
 
-//  @desc: Authorize user to access /contributor endpoint
-router.get('/dashboard', dashboard)
+// Protected
+// ONLY ALLOWED USER CAN ACCESS THIS ENDPOINT
+router.get('/dashboard', Protect, dashboard)
 
 //  Protected
-//  @desc: Posting to the StudentArchive DB: Material
+//  CONTRIBUTOR ALLOWED TO ADD NEW COURSE TO ARCHIVE
 router.post('/contributor/upload', upload.single('file'), Protect, contribute)
 
-// @desc: Download material
+// ALL AVAILABLE COURSES
+router.get('/courses', Archive)
+
+// DOWNLOAD COURSES
 router.get('/download/:filename', download)
 
 module.exports = router

@@ -10,6 +10,12 @@ const dashboard = async (req, res) => {
     // return res.send(`Welcome ${user.name}`)
 }
 
+// DISPLAY ALL AVAIABLE COURSE
+const Archive = async (req, res) => {
+    const archive = await contribution.find()
+    res.render('../views/courses/archive.ejs', {archive: archive})
+}
+
 
 const contribute = async (req, res) => {
     const {courseTitle, courseCode, courseDesc} = req.body
@@ -50,5 +56,6 @@ const download = async (req, res) =>{
 module.exports = {
     contribute,
     download,
-    dashboard
+    dashboard,
+    Archive
 }
